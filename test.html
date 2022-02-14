@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+    class LinkedList {
+        static CreateNode = function(element) {
+            this.element = element;
+            this.next = null;
+        }
+
+        constructor() {
+            this.length = 0;
+            this.head = null;
+        }
+        
+        // 向列表尾部追加
+        append(ele){
+            var node = new LinkedList.CreateNode(ele),
+            current;
+            
+            if(this.head === null){
+                this.head = node;
+            } else {
+                current = this.head;
+
+                while(current.next) {
+                    current = current.next;
+                }
+
+                current.next = node;
+            }
+            this.length++;
+        }
+        // 移除列表中的任意一项
+        removeAt(position){
+            if(position>=0 && position < this.length){
+                var current = this.head, prev, index = 0;
+                if(position === 0){
+                    head = head.next;
+                } else {
+                    while(index++ < position){
+                        prev = current;
+                        current = current.next;
+                    }
+                    prev.next = current.next;
+                }
+                this.length--;
+
+                return current;
+            } else {
+                return null;
+            }
+        }
+        // 插入链表
+        insert(position, ele){
+            if(position >=0 && position<this.length){
+                var node = new LinkedList.CreateNode(ele),
+                current = this.head,
+                prev,
+                index = 0;
+                if(position === 0){
+                    node.next = current;
+                    this.head = node;
+                } else {
+                    while(index++ < position){
+                        prev = current;
+                        current = current.next;
+                    }
+                    node.next = current;
+                    prev.next = node;
+                }
+                this.length++;
+                
+                return true;
+            } else {
+                return false;
+            }
+        }
+        getHead(){
+            return this.head;
+        }
+    }
+
+    let list = new LinkedList();
+    list.append(1001)
+    list.append(1002)
+    list.append(1003)
+    list.append(1004)
+    let head = list.getHead();
+    
+    let newList, current;
+
+    while(list.length){
+        if(newList){
+            current = newList;
+            while(current.next){
+                current = current.next;
+            }
+            current.next = list.removeAt(list.length-1)
+        } else {
+            newList = list.removeAt(list.length-1)
+        }
+    }
+    console.log(newList);
+
+
+    </script>
+</body>
+
+</html>
